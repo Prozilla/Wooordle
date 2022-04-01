@@ -1,0 +1,75 @@
+:root {
+	--background-color: #0F0F10;
+	--border-color: #2C2C2E;
+	--text-color: #CED1D4;
+	--color-a: #447D3D;
+	--color-b: #A5902D;
+	--radius: 3px;
+}
+
+body {
+	background-color: var(--background-color);
+	color: var(--text-color);
+	font-family: "DM Sans", sans-serif;
+}
+
+main {
+	display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+main >h1 {
+	text-transform: uppercase;
+	letter-spacing: 5px;
+}
+
+.grid {
+	display: flex;
+	flex-direction: column;
+	gap: 12.5px;
+}
+
+.row {
+	display: flex;
+	flex-direction: row;
+	gap: 12.5px;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+.cell {
+	width: 50px;
+	height: 50px;
+	display: flex;
+    justify-content: center;
+    align-items: center;
+	color: var(--text-color);
+	border: var(--radius) solid var(--border-color);
+	border-radius: var(--radius);
+	font-size: 2rem;
+	font-weight: bold;
+    text-transform: uppercase;
+	user-select: none;
+}
+
+.cell.active {
+	border-style: dashed;
+}
+
+.cell.green, .cell.yellow, .cell.gray {
+	border-color: transparent;
+}
+
+.cell.green {
+	background-color: var(--color-a);
+}
+
+.cell.yellow {
+	background-color: var(--color-b);
+}
+
+.cell.gray {
+	background-color: var(--border-color);
+}
