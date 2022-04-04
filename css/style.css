@@ -58,6 +58,7 @@ main {
 	max-width: var(--max-width);
 	height: calc(100% - calc(var(--header-height) + var(--radius)));
 	margin: 0 auto;
+	touch-action: manipulation;
 }
 
 /* #endregion */
@@ -98,7 +99,8 @@ main {
 	color: var(--text-color);
 	border: var(--radius) solid var(--border-color);
 	border-radius: var(--radius);
-	transition: background-color var(--transition);
+	background-color: transparent;
+	transition: background-color 900ms ease-in-out;
 
 	font-size: 1rem;
 	font-weight: bold;
@@ -109,12 +111,17 @@ main {
 	user-select: none;
 }
 
+.cell:not(:empty) {
+	animation: pop 200ms normal;
+}
+
 .cell.active {
 	border-style: dashed;
 }
 
 .cell.green, .cell.yellow, .cell.gray {
 	border-color: transparent;
+	animation: flip 300ms alternate 0ms 2 forwards ease-in-out;
 }
 
 .cell.green {
@@ -127,6 +134,27 @@ main {
 
 .cell.gray {
 	background-color: var(--border-color);
+}
+
+@keyframes pop {
+	0% {
+		transform: scale(1);
+	}
+	50% {
+		transform: scale(1.1);
+	}
+	100% {
+		transform: scale(1);
+	}
+}
+
+@keyframes flip {
+	0% {
+		transform: rotateX(0deg);
+	}
+	100% {
+		transform: rotateX(90deg);
+	}
 }
 
 /* #endregion */
