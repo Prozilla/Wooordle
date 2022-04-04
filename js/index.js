@@ -4,6 +4,8 @@ let activeCell = document.querySelector(".cell.active");
 let activeCellIndex = 0;
 let activeRow = document.querySelector(".row.active");
 
+const grid = document.querySelector(".grid");
+
 let themes;
 let word = "drill";
 const guess = [];
