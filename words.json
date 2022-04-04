@@ -15,7 +15,9 @@
 		"cream",
 		"fruit",
 		"lunch",
-		"sugar"
+		"sugar",
+		"peach",
+		"apple"
 	],
 	"vehicles":[
 		"plane",
@@ -36,15 +38,11 @@
 		"sheep",
 		"hippo"
 	],
-	"places":[
-		"beach",
-		"class",
+	"buildings":[
 		"store",
-		"coast",
-		"field",
-		"place",
 		"hotel",
-		"house"
+		"house",
+		"stall"
 	],
 	"colors":[
 		"black",
@@ -56,5 +54,25 @@
 	"countries":[
 		"china",
 		"japan"
+	],
+	"nature":[
+		"beach",
+		"coast",
+		"field",
+		"river",
+		"ocean",
+		"stick"
+	],
+	"clothing":[
+		"shirt",
+		"dress"
+	],
+	"school":[
+		"class",
+		"board",
+		"chair",
+		"stool",
+		"chalk",
+		"pupil"
 	]
 }

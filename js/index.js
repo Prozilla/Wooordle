@@ -1,21 +1,34 @@
 const width = 5;
 
-let activeCell = document.querySelector(".cell.active");
-let activeCellIndex = 0;
-let activeRow = document.querySelector(".row.active");
-
 const grid = document.querySelector(".grid");
+let activeCell = document.querySelector(".cell.active");
+let activeRow = document.querySelector(".row.active");
+const popup = document.querySelector(".popup");
+const keyboard = document.querySelector(".keyboard");
+
+let activeCellIndex = 0;
 
 let themes;
+let words = [];
 let word = "drill";
+
 const guess = [];
 let validGuesses = [];
 
 const keyboardKeys = {};
+const popupDuration = 3000;
+const cellFlipAnimDuration = 600;
+const keyboardHideDelay = 300;
+
+//#region UTIL
 
 function childIndex(element) {
 	return Array.from(element.parentNode.children).indexOf(element);
 }
+
+//#endregion
+
+//#region CELLS
 
 function setActiveCell(element) {
 	if (element && !element.parentElement.classList.contains("active"))
@@ -32,17 +45,27 @@ function setActiveCell(element) {
 	}
 }
 
-function moveActiveCell(forwards) {
+function moveActiveCell(forwards, disallowHop) {
 	const newActiveCell = forwards ? activeCell.nextElementSibling : activeCell.previousElementSibling;
 
 	if (newActiveCell)
+	{
 		setActiveCell(newActiveCell);
+
+		// Hop over already filled cells
+		if (!disallowHop && forwards && newActiveCell.textContent && newActiveCell.nextSibling)
+			moveActiveCell(true);
+	}
 }
 
 function setCellInput(text) {
 	activeCell.textContent = text;
 	guess[activeCellIndex % width] = text;
 }
+
+//#endregion
+
+//#region ROWS
 
 function nextRow() {
 	const cells = Array.from(activeRow.children);
@@ -71,51 +94,87 @@ function nextRow() {
 				cells[i].classList.add("yellow");
 				letters[letters.indexOf(letter)] = null;
 
-				keyboardKeys[letter].classList.add("yellow");
+				if (!keyboardKeys[letter].classList.contains("green"))
+					keyboardKeys[letter].classList.add("yellow");
 			} else {
 				cells[i].classList.add("gray");
 
-				keyboardKeys[letter].classList.add("gray");
+				if (!keyboardKeys[letter].classList.contains("green"))
+					keyboardKeys[letter].classList.add("gray");
 			}
 		}
 	}
 
 	activeRow.classList.remove("active");
 
-	if (correctLetters < letters.length)
+	if (correctLetters == letters.length)
 	{
+		// Won
+		endGame(true, true);
+	} else if (!activeRow.nextElementSibling)
+	{
+		// Lost
+		endGame(false, true);
+	} else {
 		activeRow = activeRow.nextElementSibling;
 		activeRow.classList.add("active");
 
 		setActiveCell(activeRow.firstElementChild);
-	} else {
-		setActiveCell(null);
 	}
 }
 
-function chooseRandomWord() {
-	fetch("./words.json").then(response => {
-		return response.json();
-	}).then(data => {
-		themes = data;
-		console.log(themes);
-		const keys = Object.keys(themes);
-		const randIndex = Math.floor(Math.random() * keys.length)
-		const randKey = keys[randIndex]
-		const words = themes[randKey];
-		word = words[ Math.floor(Math.random() * words.length)];
-	});
-}
-
-function submit() {
+function submitRow() {
 	let validGuess = true;
 	for (let i = 0; i < width; i++) {
 		if (!guess[i])
 			validGuess = false;
 	}
 
+	if (validGuess && !validGuesses.includes(guess.join("")) && !words.includes(guess.join("")))
+	{
+		validGuess = false;
+		showPopup(`${guess.join("").toUpperCase()} is not a valid word.`, popupDuration);
+	}
+
 	if (validGuess)
 		nextRow();
+}
+
+function showPopup(text, duration) {
+	popup.textContent = text;
+	popup.classList.add("active");
+
+	setTimeout(() => {
+		popup.classList.remove("active");
+	}, duration);
+}
+
+//#endregion
+
+function chooseRandomWord() {
+	const randIndex = Math.floor(Math.random() * words.length);
+	word = words[randIndex];
+}
+
+function endGame(won, delay) {
+	setActiveCell(null);
+
+	// Wait for reveal animation to finish
+	setTimeout(() => {
+		// Hide keyboard
+		keyboard.classList.add("hidden");
+
+		setTimeout(() => {
+			if (won)
+			{
+				showPopup("You won!", popupDuration);
+			} else {
+				showPopup("You lost!", popupDuration);
+			}
+
+			// Confetti cannons
+		}, keyboardHideDelay * 2);
+	}, delay ? cellFlipAnimDuration : 0);	
 }
 
 function processInput(key) {
@@ -134,7 +193,7 @@ function processInput(key) {
 				moveActiveCell(true);
 				break;
 			case "arrowright":
-				moveActiveCell(true);
+				moveActiveCell(true, true);
 				break;
 			case "arrowleft":
 				moveActiveCell(false);
@@ -145,7 +204,7 @@ function processInput(key) {
 				setCellInput();
 				break;
 			case "enter":
-				submit();
+				submitRow();
 				break;
 		}
 	}
@@ -181,7 +240,16 @@ function setUp() {
 			});
 		});
 
-	chooseRandomWord();
+	fetch("./words.json").then(response => {
+		return response.json();
+	}).then(data => {
+		themes = data;
+		Object.values(themes).forEach(themedWords => {
+			words = words.concat(themedWords);
+		});
+
+		chooseRandomWord();
+	});
 }
 
 setUp();
