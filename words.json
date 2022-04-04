@@ -4,7 +4,8 @@
 		"great",
 		"alone",
 		"small",
-		"large"
+		"large",
+		"lucky"
 	],
 	"food":[
 		"salad",
@@ -26,12 +27,14 @@
 	"drinks":[
 		"vodka",
 		"water",
-		"drink"
+		"drink",
+		"juice"
 	],
 	"animals":[
 		"rhino",
 		"horse",
-		"sheep"
+		"sheep",
+		"hippo"
 	],
 	"places":[
 		"beach",

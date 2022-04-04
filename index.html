@@ -5,6 +5,7 @@
 		<meta charset="UTF-8">
 		<link rel="stylesheet" href="css/style.css">
 		<script rel="preconnect" src="https://kit.fontawesome.com/241f6baf1e.js" crossorigin="anonymous"></script>
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
 
 		<!-- FONT -->
 		<link rel="preconnect" href="https://fonts.googleapis.com">
@@ -12,8 +13,10 @@
 		<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;700&display=swap" rel="stylesheet">
 	</head>
 	<body>
-		<main>
+		<header>
 			<h1>Wordle</h1>
+		</header>
+		<main>
 			<div class="grid">
 				<ul class="row active">
 					<li class="cell active"></li>
@@ -64,6 +67,43 @@
 					<li class="cell"></li>
 					<li class="cell"></li>
 				</ul>
+			</div>
+			<div class="keyboard">
+				<div class="row">
+					<button>q</button>
+					<button>w</button>
+					<button>e</button>
+					<button>r</button>
+					<button>t</button>
+					<button>y</button>
+					<button>u</button>
+					<button>i</button>
+					<button>u</button>
+					<button>o</button>
+					<button>p</button>
+				</div>
+				<div class="row">
+					<button>a</button>
+					<button>s</button>
+					<button>d</button>
+					<button>f</button>
+					<button>g</button>
+					<button>h</button>
+					<button>j</button>
+					<button>k</button>
+					<button>l</button>
+				</div>
+				<div class="row">
+					<button>enter</button>
+					<button>z</button>
+					<button>x</button>
+					<button>c</button>
+					<button>v</button>
+					<button>b</button>
+					<button>n</button>
+					<button>m</button>
+					<button data-key="backspace"><i class="fa-solid fa-delete-left"></i></button>
+				</div>
 			</div>
 		</main>
 

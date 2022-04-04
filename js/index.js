@@ -9,6 +9,8 @@ let word = "drill";
 const guess = [];
 let validGuesses = [];
 
+const keyboardKeys = {};
+
 function childIndex(element) {
 	return Array.from(element.parentNode.children).indexOf(element);
 }
@@ -52,6 +54,9 @@ function nextRow() {
 			cells[i].classList.add("green");
 			letters[letters.indexOf(letter)] = null;
 			correctLetters++;
+
+			keyboardKeys[letter].classList.add("green");
+			keyboardKeys[letter].classList.remove("yellow");
 		}
 	}
 
@@ -63,8 +68,12 @@ function nextRow() {
 			{
 				cells[i].classList.add("yellow");
 				letters[letters.indexOf(letter)] = null;
+
+				keyboardKeys[letter].classList.add("yellow");
 			} else {
 				cells[i].classList.add("gray");
+
+				keyboardKeys[letter].classList.add("gray");
 			}
 		}
 	}
@@ -96,6 +105,50 @@ function chooseRandomWord() {
 	});
 }
 
+function submit() {
+	let validGuess = true;
+	for (let i = 0; i < width; i++) {
+		if (!guess[i])
+			validGuess = false;
+	}
+
+	if (validGuess)
+		nextRow();
+}
+
+function processInput(key) {
+	key = key.toLowerCase();
+
+	if (!activeCell)
+			return;
+
+	if (key.length == 1 && key.match(/[a-z]/g))
+	{
+		setCellInput(key);
+		moveActiveCell(true);
+	} else {
+		switch (key) {
+			case " ":
+				moveActiveCell(true);
+				break;
+			case "arrowright":
+				moveActiveCell(true);
+				break;
+			case "arrowleft":
+				moveActiveCell(false);
+				break;
+			case "backspace":
+				if (!activeCell.textContent)
+					moveActiveCell(false);
+				setCellInput();
+				break;
+			case "enter":
+				submit();
+				break;
+		}
+	}
+}
+
 function setUp() {
 	setActiveCell(activeCell);
 
@@ -105,37 +158,16 @@ function setUp() {
 	});
 
 	document.addEventListener("keydown", function(event) {
-		const key = event.key;
+		processInput(event.key);
+	});
 
-		if (!activeCell)
-			return;
-
-		if (key.length == 1 && key.toLowerCase().match(/[a-z]/g))
-		{
-			setCellInput(key);
-			moveActiveCell(true);
-		} else if (key == "ArrowRight" || key == " ")
-		{
-			moveActiveCell(true);
-		} else if (key == "ArrowLeft")
-		{
-			moveActiveCell(false);
-		} else if (key == "Backspace")
-		{
-			if (!activeCell.textContent)
-				moveActiveCell(false);
-			setCellInput();
-		} else if (key == "Enter")
-		{
-			let validGuess = true;
-			for (let i = 0; i < width; i++) {
-				if (!guess[i])
-					validGuess = false;
-			}
-
-			if (validGuess)
-				nextRow();
+	document.querySelectorAll(".keyboard button").forEach(button => {
+		const key = button.getAttribute("data-key") || button.textContent;
+		button.onclick = function(event) {
+			processInput(key);
 		}
+
+		keyboardKeys[key] = button;
 	});
 
 	fetch("./dictionary.json").then(response => {
