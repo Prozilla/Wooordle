@@ -42,8 +42,27 @@ header {
 
 header >h1 {
 	margin: 0;
+	font-size: 1.75rem;
 	text-transform: uppercase;
 	letter-spacing: 5px;
+}
+
+header >span {
+	position: fixed;
+	top: 0;
+	height: inherit;
+}
+
+header span.left-menu {
+	left: 18px;
+	display: flex;
+	align-items: center;
+}
+
+header span.left-menu i {
+	color: var(--text-color);
+	font-size: 1.5rem;
+	cursor: pointer;
 }
 
 /* #endregion */
@@ -86,6 +105,10 @@ main {
 	margin: 0;
 	padding: 0;
 	list-style: none;
+}
+
+.grid .row.shake {
+	animation: shake 600ms normal 0ms 1 forwards ease-in-out;
 }
 
 .cell {
@@ -154,6 +177,27 @@ main {
 	}
 	100% {
 		transform: rotateX(90deg);
+	}
+}
+
+@keyframes shake {
+	0% {
+		transform: translateX(0);
+	}
+	20% {
+		transform: translateX(-12px);
+	}
+	40% {
+		transform: translateX(12px);
+	}
+	60% {
+		transform: translateX(-12px);
+	}
+	80% {
+		transform: translateX(12px);
+	}
+	100% {
+		transform: translateX(0);
 	}
 }
 
@@ -249,6 +293,14 @@ main {
 
 .popup.active {
 	opacity: 1;
+}
+
+/* #endregion */
+
+/* #region UTIL */
+
+.no-transition {
+	transition: none !important;
 }
 
 /* #endregion */

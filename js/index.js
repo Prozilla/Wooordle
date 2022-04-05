@@ -12,12 +12,13 @@ let themes;
 let words = [];
 let word = "drill";
 
-const guess = [];
+let guess = [];
 let validGuesses = [];
 
 const keyboardKeys = {};
 const popupDuration = 3000;
 const cellFlipAnimDuration = 600;
+const rowShakeAnimDuration = 600;
 const keyboardHideDelay = 300;
 
 //#region UTIL
@@ -34,7 +35,8 @@ function setActiveCell(element) {
 	if (element && !element.parentElement.classList.contains("active"))
 		return;
 
-	activeCell.classList.remove("active");
+	if (activeCell)
+		activeCell.classList.remove("active");
 
 	activeCell = element;
 
@@ -63,9 +65,21 @@ function setCellInput(text) {
 	guess[activeCellIndex % width] = text;
 }
 
+function clearActiveCell() {
+	setCellInput();
+}
+
 //#endregion
 
 //#region ROWS
+
+function setActiveRow(element) {
+	activeRow.classList.remove("active");
+
+	activeRow = element;
+	activeRow.classList.add("active");
+	setActiveCell(activeRow.firstElementChild);
+}
 
 function nextRow() {
 	const cells = Array.from(activeRow.children);
@@ -134,6 +148,12 @@ function submitRow() {
 	{
 		validGuess = false;
 		showPopup(`${guess.join("").toUpperCase()} is not a valid word.`, popupDuration);
+
+		// Shake animation
+		activeRow.classList.add("shake");
+		setTimeout(() => {
+			activeRow.classList.remove("shake");
+		}, rowShakeAnimDuration);
 	}
 
 	if (validGuess)
@@ -151,10 +171,7 @@ function showPopup(text, duration) {
 
 //#endregion
 
-function chooseRandomWord() {
-	const randIndex = Math.floor(Math.random() * words.length);
-	word = words[randIndex];
-}
+//#region GAME EVENTS
 
 function endGame(won, delay) {
 	setActiveCell(null);
@@ -175,6 +192,41 @@ function endGame(won, delay) {
 			// Confetti cannons
 		}, keyboardHideDelay * 2);
 	}, delay ? cellFlipAnimDuration : 0);	
+}
+
+function restartGame() {
+	for (let i = 0; i < grid.children.length; i++) {
+		const row = grid.children[i];
+		row.classList.remove("active", "shake");
+
+		for (let j = 0; j < row.children.length; j++) {
+			const cell = row.children[j];
+			cell.textContent = null;
+
+			cell.classList.add("no-transition");
+			cell.classList.remove("active", "green", "yellow", "gray");
+
+			setTimeout(() => {
+				cell.classList.remove("no-transition");				
+			}, 300);
+		}
+	}
+
+	keyboard.classList.remove("hidden");
+	Object.values(keyboardKeys).forEach(keyboardKey => {
+		keyboardKey.classList.remove("green", "yellow", "gray");
+	});
+
+	guess = [];
+	setActiveRow(grid.firstElementChild);
+	chooseRandomWord();
+}
+
+//#endregion
+
+function chooseRandomWord() {
+	const randIndex = Math.floor(Math.random() * words.length);
+	word = words[randIndex];
 }
 
 function processInput(key) {
@@ -201,7 +253,7 @@ function processInput(key) {
 			case "backspace":
 				if (!activeCell.textContent)
 					moveActiveCell(false);
-				setCellInput();
+				clearActiveCell();
 				break;
 			case "enter":
 				submitRow();
@@ -215,7 +267,14 @@ function setUp() {
 
 	document.addEventListener("click", function(event) {
 		if (event.target.classList.contains("cell"))
-			setActiveCell(event.target);
+		{
+			if (activeCell != event.target)
+			{
+				setActiveCell(event.target);
+			} else {
+				clearActiveCell();
+			}
+		}
 	});
 
 	document.addEventListener("keydown", function(event) {
@@ -236,7 +295,10 @@ function setUp() {
 		}).then(data => {
 			Object.keys(data).forEach(function(key) {
 				if (key.length <= 5)
+				{
 					validGuesses.push(key);
+					validGuesses = validGuesses.concat(data[key].split(" "));
+				}
 			});
 		});
 
