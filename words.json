@@ -24,19 +24,25 @@
 		"metro",
 		"pilot",
 		"motor",
-		"drive"
+		"drive",
+		"wheel"
 	],
 	"drinks":[
 		"vodka",
 		"water",
 		"drink",
-		"juice"
+		"juice",
+		"glass"
 	],
 	"animals":[
 		"rhino",
 		"horse",
 		"sheep",
-		"hippo"
+		"hippo",
+		"snake",
+		"snail",
+		"goose",
+		"moose"
 	],
 	"buildings":[
 		"store",
@@ -53,7 +59,8 @@
 	],
 	"countries":[
 		"china",
-		"japan"
+		"japan",
+		"spain"
 	],
 	"nature":[
 		"beach",
@@ -61,7 +68,9 @@
 		"field",
 		"river",
 		"ocean",
-		"stick"
+		"stick",
+		"stone",
+		"grass"
 	],
 	"clothing":[
 		"shirt",
@@ -73,6 +82,17 @@
 		"chair",
 		"stool",
 		"chalk",
-		"pupil"
+		"pupil",
+		"bench"
+	],
+	"body":[
+		"torso",
+		"brain",
+		"blood",
+		"heart"
+	],
+	"underwater":[
+		"diver",
+		"shark"
 	]
 }

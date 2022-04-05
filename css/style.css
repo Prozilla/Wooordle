@@ -42,9 +42,9 @@ header {
 
 header >h1 {
 	margin: 0;
-	font-size: 1.75rem;
+	font-size: 1.25rem;
 	text-transform: uppercase;
-	letter-spacing: 5px;
+	letter-spacing: 3px;
 }
 
 header >span {
@@ -61,7 +61,7 @@ header span.left-menu {
 
 header span.left-menu i {
 	color: var(--text-color);
-	font-size: 1.5rem;
+	font-size: 1.25rem;
 	cursor: pointer;
 }
 
@@ -322,6 +322,20 @@ main {
 @media screen and (max-width: 260px) {
 	.keyboard button {
 		padding: 0;
+	}
+
+	header span.left-menu i {
+		font-size: 1rem;
+	}
+}
+
+@media screen and (min-width: 330px) {
+	header span.left-menu i {
+		font-size: 1.5rem;
+	}
+
+	header >h1 {
+		font-size: 1.75rem;
 	}
 }
 
