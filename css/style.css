@@ -10,6 +10,7 @@
 	--radius: 3px;
 	--header-height: 50px;
 	--keyboard-height: 200px;
+	--keyboard-spacing: 3px;
 	--max-width: 500px;
 
 	--transition: 200ms ease-in-out;
@@ -21,8 +22,8 @@ html {
 }
 
 body {
-	background-color: var(--background-color-a);
 	color: var(--text-color);
+	background-color: var(--background-color-a);
 	font-family: "DM Sans", sans-serif;
 	margin: 0;
 	width: 100%;
@@ -234,9 +235,9 @@ main {
 
 .keyboard .row {
 	display: flex;
-	gap: 6px;
+	gap: var(--keyboard-spacing);
 	width: 100%;
-	margin-bottom: 6px;
+	margin-bottom: var(--keyboard-spacing);
 }
 
 .keyboard button {
@@ -267,6 +268,10 @@ main {
 
 .keyboard button.gray {
 	background-color: var(--background-color-b);
+}
+
+.keyboard button[data-key="backspace"] {
+	padding: 0 6px;
 }
 
 /* #endregion */
@@ -334,6 +339,9 @@ main {
 	background-color: var(--background-color-b);
 	border-radius: var(--radius);
 	padding: 12px;
+	overflow-y: auto;
+	-ms-overflow-style: none;
+ 	 scrollbar-width: none;
 	box-sizing: border-box;
 	z-index: 999;
 }
@@ -354,6 +362,10 @@ main {
 	width: 100%;
 }
 
+.help::-webkit-scrollbar {
+	display: none;
+}
+
 /* #endregion */
 
 /* #region UTIL */
@@ -366,12 +378,14 @@ main {
 
 /* #region RESPONSIVE */
 
+/* Medium screens */
 @media screen and (min-width: 440px) {
 	.cell {
 		font-size: 2rem;
 	}
 }
 
+/* Narrow screens */
 @media screen and (max-width: 280px) {
 	.cell {
 		font-size: 0.75rem;
@@ -388,7 +402,12 @@ main {
 	}
 }
 
+/* Non-mobile screens */
 @media screen and (min-width: 330px) {
+	:root {
+		--keyboard-spacing: 6px;
+	}
+
 	header span.menu i {
 		font-size: 1.5rem;
 	}
@@ -398,6 +417,7 @@ main {
 	}
 }
 
+/* Wide screens */
 @media screen and (min-width: 550px) {
 	.help {
 		width: var(--max-width);
@@ -406,6 +426,7 @@ main {
 	}
 }
 
+/* Short screens */
 @media screen and (max-height: 880px) {
 	.cell {
 		flex: 0 1 12.5%;
