@@ -14,10 +14,13 @@
 	</head>
 	<body>
 		<header>
-			<span class="left-menu">
+			<span class="menu left-menu">
 				<i class="fa-solid fa-rotate-right" onclick="restartGame()"></i>
 			</span>
 			<h1>Wooordle</h1>
+			<span class="menu right-menu">
+				<i class="fa-solid fa-circle-question" onclick="toggleHelp()"></i>
+			</span>
 		</header>
 
 		<main>
@@ -107,6 +110,41 @@
 			<div class="overlay">
 				<div class="popup-container">
 					<p class="popup"></p>
+				</div>
+				<div class="help-container active">
+					<span class="help">
+						<i class="fa-solid fa-xmark" onclick="toggleHelp()"></i>
+						<h1>How to play</h1>
+						<p>Guess the word in 6 tries or less.</p>
+						<p>Each guess must be a valid 5-letter word. Hit the enter button to submit.</p>
+						<p>After each guess, the color of the tiles will change to show how close your guess was to the word.</p>
+						<h2>Examples</h2>
+						<ul class="row">
+							<li class="cell">g</li>
+							<li class="cell green">r</li>
+							<li class="cell">a</li>
+							<li class="cell">s</li>
+							<li class="cell">s</li>
+						</ul>
+						<p>The letter <strong>R</strong> is green because it's in the word and in the correct spot.</p>
+						<ul class="row">
+							<li class="cell">f</li>
+							<li class="cell">i</li>
+							<li class="cell yellow">e</li>
+							<li class="cell">l</li>
+							<li class="cell">d</li>
+						</ul>
+						<p>The letter <strong>E</strong> is yellow because it's in the word but in the wrong spot.</p>
+						<ul class="row">
+							<li class="cell">o</li>
+							<li class="cell">c</li>
+							<li class="cell">e</li>
+							<li class="cell gray">a</li>
+							<li class="cell">n</li>
+						</ul>
+						<p>The letter <strong>A</strong> is gray because it's not in the word in any spot.</p>
+						<p>This game was made by Prozilla and inspired by the official <a href="https://www.nytimes.com/games/wordle/index.html" target="_blank">Wordle</a>.</p>
+					</span>
 				</div>
 			</div>
 		</aside>

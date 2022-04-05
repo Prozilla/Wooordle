@@ -5,6 +5,7 @@ let activeCell = document.querySelector(".cell.active");
 let activeRow = document.querySelector(".row.active");
 const popup = document.querySelector(".popup");
 const keyboard = document.querySelector(".keyboard");
+const help = document.querySelector(".help-container");
 
 let activeCellIndex = 0;
 
@@ -220,6 +221,14 @@ function restartGame() {
 	guess = [];
 	setActiveRow(grid.firstElementChild);
 	chooseRandomWord();
+}
+
+//#endregion
+
+//#region HELP
+
+function toggleHelp() {
+	help.classList.toggle("active");
 }
 
 //#endregion

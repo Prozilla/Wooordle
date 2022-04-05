@@ -70,7 +70,8 @@
 		"ocean",
 		"stick",
 		"stone",
-		"grass"
+		"grass",
+		"plant"
 	],
 	"clothing":[
 		"shirt",
@@ -80,10 +81,8 @@
 		"class",
 		"board",
 		"chair",
-		"stool",
 		"chalk",
-		"pupil",
-		"bench"
+		"pupil"
 	],
 	"body":[
 		"torso",
@@ -94,5 +93,18 @@
 	"underwater":[
 		"diver",
 		"shark"
+	],
+	"furniture":[
+		"couch",
+		"stool",
+		"bench",
+		"table"
+	],
+	"shapes":[
+		"cross",
+		"point",
+		"round",
+		"sharp",
+		"shape"
 	]
 }

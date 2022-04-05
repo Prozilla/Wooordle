@@ -29,6 +29,11 @@ body {
 	height: 100%;
 }
 
+a {
+	color: var(--text-color);
+	cursor: pointer;
+}
+
 /* #region HEADER */
 
 header {
@@ -53,13 +58,21 @@ header >span {
 	height: inherit;
 }
 
-header span.left-menu {
-	left: 18px;
+header span.menu {
 	display: flex;
 	align-items: center;
 }
 
-header span.left-menu i {
+header span.menu.left-menu {
+	left: 18px;
+}
+
+header span.menu.right-menu {
+	right: 18px;
+	flex-direction: row-reverse;
+}
+
+header span.menu i {
 	color: var(--text-color);
 	font-size: 1.25rem;
 	cursor: pointer;
@@ -96,7 +109,7 @@ main {
     padding: 10px;
 }
 
-.grid .row {
+.grid .row, .help .row {
 	display: flex;
 	flex-direction: row;
 	gap: 12px;
@@ -270,7 +283,7 @@ main {
 	pointer-events: none;
 }
 
-.popup-container {
+.overlay >* {
 	position: absolute;
 	top: 0;
 	left: 0;
@@ -293,6 +306,51 @@ main {
 
 .popup.active {
 	opacity: 1;
+}
+
+/* #endregion */
+
+/* #region HELP */
+
+.help-container {
+	opacity: 0;
+	transform: translateY(60px);
+	backdrop-filter: blur(3px);
+	pointer-events: all;
+	transition: 300ms ease-in-out;
+}
+
+.help-container.active {
+	opacity: 1;
+	transform: translateY(0);
+}
+
+.help {
+	position: fixed;
+	width: 100%;
+	height: 100%;
+	color: var(--text-color);
+	background-color: var(--background-color-b);
+	border-radius: var(--radius);
+	padding: 12px;
+	box-sizing: border-box;
+	z-index: 999;
+}
+
+.help h1 {
+	margin-top: 0;
+}
+
+.help i {
+	position: absolute;
+	top: 12px;
+	right: 12px;
+	font-size: 1.75rem;
+	cursor: pointer;
+}
+
+.help .row {
+	width: 100%;
 }
 
 /* #endregion */
@@ -324,18 +382,26 @@ main {
 		padding: 0;
 	}
 
-	header span.left-menu i {
+	header span.menu i {
 		font-size: 1rem;
 	}
 }
 
 @media screen and (min-width: 330px) {
-	header span.left-menu i {
+	header span.menu i {
 		font-size: 1.5rem;
 	}
 
 	header >h1 {
 		font-size: 1.75rem;
+	}
+}
+
+@media screen and (min-width: 550px) {
+	.help {
+		width: var(--max-width);
+		height: min-content;
+		margin-top: 12px;
 	}
 }
 
