@@ -112,5 +112,9 @@
 		"round",
 		"sharp",
 		"shape"
+	],
+	"sound":[
+		"sound",
+		"music"
 	]
 }

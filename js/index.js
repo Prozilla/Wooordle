@@ -114,7 +114,7 @@ function nextRow() {
 			} else {
 				cells[i].classList.add("gray");
 
-				if (!keyboardKeys[letter].classList.contains("green"))
+				if (!keyboardKeys[letter].classList.contains("green") && !keyboardKeys[letter].classList.contains("yellow"))
 					keyboardKeys[letter].classList.add("gray");
 			}
 		}
