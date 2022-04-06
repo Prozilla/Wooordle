@@ -96,9 +96,14 @@
 	],
 	"furniture":[
 		"couch",
+		"bench"
+	],
+	"kitchen":[
+		"chair",
 		"stool",
-		"bench",
-		"table"
+		"table",
+		"plate",
+		"knife"
 	],
 	"shapes":[
 		"cross",

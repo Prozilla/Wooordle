@@ -191,6 +191,7 @@ function endGame(won, delay) {
 			}
 
 			// Confetti cannons
+			initConfetti();
 		}, keyboardHideDelay * 2);
 	}, delay ? cellFlipAnimDuration : 0);	
 }

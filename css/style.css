@@ -4,8 +4,11 @@
 	--border-color: #2C2C2E;
 	--text-color: #CED1D4;
 
-	--color-a: #447D3D;
-	--color-b: #A5902D;
+	--red: #c76a43;
+	--yellow: #A5902D;
+	--green: #447D3D;
+	--blue: #49a0a3;
+	--purple: #675378;
 
 	--radius: 3px;
 	--header-height: 50px;
@@ -92,6 +95,9 @@ main {
 	max-width: var(--max-width);
 	height: calc(100% - calc(var(--header-height) + var(--radius)));
 	margin: 0 auto;
+}
+
+main * {
 	touch-action: manipulation;
 }
 
@@ -163,11 +169,11 @@ main {
 }
 
 .cell.green {
-	background-color: var(--color-a);
+	background-color: var(--green);
 }
 
 .cell.yellow {
-	background-color: var(--color-b);
+	background-color: var(--yellow);
 }
 
 .cell.gray {
@@ -260,11 +266,11 @@ main {
 }
 
 .keyboard button.green {
-	background-color: var(--color-a);
+	background-color: var(--green);
 }
 
 .keyboard button.yellow {
-	background-color: var(--color-b);
+	background-color: var(--yellow);
 }
 
 .keyboard button.gray {
@@ -312,6 +318,19 @@ main {
 
 .popup.active {
 	opacity: 1;
+}
+
+/* #endregion */
+
+/* #region CONFETTI */
+
+.canvas {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	pointer-events: none;
 }
 
 /* #endregion */
@@ -404,7 +423,7 @@ main {
 }
 
 /* Non-mobile screens */
-@media screen and (min-width: 330px) {
+@media screen and (min-width: 360px) {
 	:root {
 		--keyboard-spacing: 6px;
 	}
