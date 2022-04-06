@@ -133,6 +133,7 @@ function nextRow() {
 	} else {
 		activeRow = activeRow.nextElementSibling;
 		activeRow.classList.add("active");
+		guess = [];
 
 		setActiveCell(activeRow.firstElementChild);
 	}
