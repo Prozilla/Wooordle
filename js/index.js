@@ -1,6 +1,8 @@
 const width = 5;
 
+const root = document.querySelector(":root");
 const grid = document.querySelector(".grid");
+const header = document.querySelector("header");
 let activeCell = document.querySelector(".cell.active");
 let activeRow = document.querySelector(".row.active");
 const popup = document.querySelector(".popup");
@@ -273,6 +275,33 @@ function processInput(key) {
 	}
 }
 
+function resizeGrid() {
+	const maxWidth = getComputedStyle(root).getPropertyValue("--max-width").slice(0, -2);
+	const headerHeight = header.getBoundingClientRect().height;
+	const keyboardHeight = keyboard.getBoundingClientRect().height;
+
+	const horizontalSpace = window.innerWidth > maxWidth ? maxWidth : window.innerWidth;
+	const verticalSpace = window.innerHeight - headerHeight - keyboardHeight;
+
+	let width = horizontalSpace;
+	let height = verticalSpace;
+
+	// Try to fit grid with 6 - 5 ratio
+	if (6 * horizontalSpace > 5 * verticalSpace)
+	{
+		// Use height
+		width = height / 6 * 5;
+	} else if (6 * horizontalSpace < 5 * verticalSpace)
+	{
+		// Use width
+		height = width / 5 * 6;
+	}
+
+	grid.setAttribute("style", `width:${width}px; height:${height}px`);
+	grid.style.width = width + "px";
+	grid.style.height = height + "px";
+}
+
 function setUp() {
 	setActiveCell(activeCell);
 
@@ -301,6 +330,11 @@ function setUp() {
 		keyboardKeys[key] = button;
 	});
 
+	resizeGrid();
+	window.addEventListener("resize", function(event) {
+		resizeGrid();
+	});
+
 	fetch("./dictionary.json").then(response => {
 			return response.json();
 		}).then(data => {
@@ -321,7 +355,7 @@ function setUp() {
 			words = words.concat(themedWords);
 		});
 
-		chooseRandomWord();
+		// chooseRandomWord();
 	});
 }
 

@@ -1,6 +1,5 @@
 // https://codepen.io/n33kos/pen/gjVQwv
 
-const root = document.querySelector(":root");
 const canvas = document.querySelector(".canvas");
 const ctx = canvas.getContext("2d");
 
@@ -24,7 +23,6 @@ const colors = [
 	getComputedStyle(root).getPropertyValue("--purple").trim(),
 ];
 
-//-----------Functions--------------
 resizeCanvas = () => {
 	canvas.width = window.innerWidth;
 	canvas.height = window.innerHeight;
@@ -32,7 +30,7 @@ resizeCanvas = () => {
 	cy = ctx.canvas.height / 2;
 }
 
-randomRange = (min, max) => Math.random() * (max - min) + min
+randomRange = (min, max) => Math.random() * (max - min) + min;
 
 initConfetti = () => {
 	for (let i = 0; i < confettiCount; i++) {
@@ -53,13 +51,12 @@ initConfetti = () => {
 			},
 			velocity: {
 				x: randomRange(-25, 25),
-				y: randomRange(0, -50),
+				y: randomRange(0, -35),
 			},
 		});
 	}
 }
 
-//---------Render-----------
 render = () => {  
 	ctx.clearRect(0, 0, canvas.width, canvas.height);
 

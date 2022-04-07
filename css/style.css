@@ -441,10 +441,6 @@ main * {
 
 /* Non-mobile screens */
 @media screen and (min-width: 360px) {
-	:root {
-		--keyboard-spacing: 6px;
-	}
-
 	header span.menu i {
 		font-size: 1.5rem;
 	}
@@ -454,20 +450,19 @@ main * {
 	}
 }
 
+/* Large mobile */
+@media screen and (min-width: 425px) {
+	:root {
+		--keyboard-spacing: 6px;
+	}
+}
+
 /* Wide screens */
 @media screen and (min-width: 550px) {
 	.help {
 		width: var(--max-width);
 		height: min-content;
 		margin-top: 12px;
-	}
-}
-
-/* Short screens */
-@media screen and (max-height: 880px) {
-	.cell {
-		flex: 0 1 12.5%;
-		width: auto;
 	}
 }
 
