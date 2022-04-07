@@ -355,7 +355,7 @@ function setUp() {
 			words = words.concat(themedWords);
 		});
 
-		// chooseRandomWord();
+		chooseRandomWord();
 	});
 }
 
